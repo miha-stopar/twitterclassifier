@@ -34,25 +34,11 @@ class TrainCategories():
                     labels.append(cdir)
         vectorizer = TfidfVectorizer(stop_words='english', token_pattern=r'[a-zA-Z]{4,}', min_df=4)
         X_train = vectorizer.fit_transform(data)
-        reduce_dimensionality = util.reduce_dimensionality
-        if reduce_dimensionality:
-            from sklearn.decomposition import PCA
-            self.logger.info("vocabulary length: %s" % len(vectorizer.vocabulary_))
-            pca = PCA(n_components=800)
-            X = X_train.toarray()
-            pca.fit(X)
-            X_r = pca.transform(X)
-        if reduce_dimensionality: 
-            clf = OneVsRestClassifier(LinearSVC(random_state=0)).fit(X_r, labels)
-        else:
-            clf = OneVsRestClassifier(LinearSVC(random_state=0)).fit(X_train, labels)
+        clf = OneVsRestClassifier(LinearSVC(random_state=0)).fit(X_train, labels)
         filename = os.path.join(util.classifiers_dir, 'categories.joblib.pkl')
         joblib.dump(clf, filename, compress=9)
         filename = os.path.join(util.classifiers_dir, 'vect.pkl')
         joblib.dump(vectorizer, filename, compress=9)
-        if reduce_dimensionality:
-            filename = os.path.join(util.classifiers_dir, 'pca.pkl')
-            joblib.dump(pca, filename, compress=9)
         return True
         
     def get_top_keywords(self):

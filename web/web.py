@@ -64,15 +64,21 @@ def action(name):
 
 @route('/')
 def hello():
-    categories = util.list_categories_and_users_count()
-    time_msg = util.get_classifier_mod_msg()
-    train = traincategories.TrainCategories()
-    top_keywords = train.get_top_keywords()
-    trained_categories=[]
-    for c in categories:
-        if c[0] in top_keywords:
-            trained_categories.append(c)
     data_time_msg = util.get_data_mod_msg()
+    categories = util.list_categories_and_users_count()
+    try:
+        time_msg = util.get_classifier_mod_msg()
+        train = traincategories.TrainCategories()
+        top_keywords = train.get_top_keywords()
+        trained_categories=[]
+        for c in categories:
+            if c[0] in top_keywords:
+                trained_categories.append(c)
+    except Exception, e:
+        logger.error(str(e))
+        time_msg = "Algorithm was last trained: never. You should train it."
+        trained_categories = []
+        top_keywords = {}
     return template(util.web_template, web_domain=util.web_domain, web_port=util.web_port, categories=trained_categories, time_msg=time_msg, predict_msg="no category predicted", data_time_msg=data_time_msg, top_keywords=top_keywords)
    
 bottle.debug(True) 

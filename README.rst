@@ -1,25 +1,26 @@
+
+
+.. image:: https://bitbucket.org/miha_stopar/twitterclassifier/raw/tip/webui.png
+
+
 About
 =====
 
-Classifier for predicting users' interests based on their Twitter profile. Simple web UI is provided for 
-managing the classifier.
-
-.. image:: https://bitbucket.org/miha_stopar/twitterclassifier/raw/tip/webui.png
+Classifier for predicting user interests based on Twitter profile and using Python library scikit-learn.
 
 Collecting data
 =====
 
-First of all a set of categories/interests and their representing users needs to be defined. Categories are for example: *psychology, 
-science, politics, fiction literature, programming* etc. For each category a representing user is needed - I put @JohnDCook for category 
+Add category name and its representing user using the second form (see screenshot). Categories are for example: *psychology, 
+science, politics, fiction literature, programming* etc. For each category a representing user is needed - @JohnDCook for category 
 *programming* for example. 
 
-Once a new category and its representing user are added by submitting the second form (see the screenshot) - 
-the tweets from this user and users that she/he is following are downloaded (assumption that users that are being followed share 
-the same interest as the user that is following them is rather simplified and could be replaced by manually adding 
-representing users for each category).
+Once a new category is added tweets from representing user and users that she/he is following are downloaded - assumption that users 
+that are being followed share the same interest as the representing user is rather simplified and could be improved with some
+additional filtering.
 
-Some things to be noted here: only English tweets are stored (filtering is done based on English stop words), only users with more
-that 50 followers are considered, and 40 users are collected per category. These parameters are configurable and can be changed in 
+Some things to be noted here: only English tweets are stored (filtering is done based on English stop words) and only users with more
+that 50 followers are considered. These and some other parameters can be configured in 
 */path/to/twitterclassifier/twclassifier/ccore/util.py*.
 
 For more details see */path/to/twitterclassifier/twclassifier/ccore/categories.py*.
@@ -27,7 +28,7 @@ For more details see */path/to/twitterclassifier/twclassifier/ccore/categories.p
 Training data
 =====
 
-Once categories are defined and tweets are extracted - the Train button at the bottom of the page should be used to run the machine
+Once categories are defined and tweets are extracted Train button should be used to run the machine
 learning algorithm. Python library scikit-learn is used for data cleaning and machine learning (see *traincategories.py* inside
 */path/to/twitterclassifier/twclassifier/ccore* for more details).
 
@@ -62,7 +63,16 @@ Dependencies
 Install and run
 =====
 
-Go to */path/to/twitterclassifier/config/twitter.cfg* and put your Twitter credentials there.
+Go to */path/to/twitterclassifier/config* and add twitter.cfg file with your Twitter credentials there. It should
+look like something like:
+
+::
+	[Twitter]
+	token = 772084514-zXzUYZlLTE2WazPUFS94Fhmr9wNtEzzeUuQuhpiT
+	token_secret = vBa0oJx8wcotp4teDQY37MyMCv8bE625MixuaDlt4wg
+	consumer_key = CKK55Jukf23p8ejYTXY6w
+	consumer_secret = ywgZZ5fAsC1MCD04icV1lWSoMFlGr3HEmg1PpAWHJY
+
 
 Create a directory where tweets will be stored and edit data_dir parameter in */path/to/twitterclassifier/twclassifier/ccore/util.py*.
 
@@ -74,5 +84,5 @@ Go into */path/to/twitterclassifier/web* and run:
 ::
 	python web.py
 	
-Open http://localhost:8080/ in web browser. For further configuration see and edit */path/to/twitterclassifier/twclassifier/ccore/util.py*.
+Open http://localhost:8080/ in a web browser. For further configuration see and edit */path/to/twitterclassifier/twclassifier/ccore/util.py*.
 	

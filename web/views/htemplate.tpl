@@ -1,6 +1,6 @@
 <html>                                                                  
  <head>                                                                  
- <title>Predicting users' interests</title>
+ <title>Predicting user interests</title>
  <script type="text/javascript" src="static/jquery.js"></script>          
  <link rel="stylesheet" href="static/bootstrap.min.css" type="text/css" media="screen">
  <link rel="stylesheet" href="static/olaii.css" type="text/css" media="screen">
@@ -30,7 +30,7 @@
 
     <div class="container">
 	  <br><br>
-      <h1>Predicting users' interests</h1>
+      <h1>Predicting user interests</h1>
       
       <form name="pform">
 	  <fieldset>

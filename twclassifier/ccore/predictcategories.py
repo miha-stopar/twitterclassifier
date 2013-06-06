@@ -5,6 +5,7 @@ from sklearn.externals import joblib
 from socialweb.tweets import Tweets
 import util
 import logging
+import collections
 
 class PredictCategories(object):
     def __init__(self):
@@ -15,13 +16,10 @@ class PredictCategories(object):
         self.clf = joblib.load(filename)
         filename = os.path.join(util.classifiers_dir, 'vect.pkl')
         self.vectorizer = joblib.load(filename)
-        if util.reduce_dimensionality:
-            filename = os.path.join(util.classifiers_dir, 'pca.pkl')
-            self.pca = joblib.load(filename)
         
     def predict_for_user(self, user):
         use_ids = False
-        interests = []
+        interests = collections.defaultdict(int)
         if re.findall("[a-zA-Z]", user) == []:
             use_ids = True
         users_info = self.tweets.collect_users_info([user], use_ids=use_ids)
@@ -38,8 +36,7 @@ class PredictCategories(object):
                 r_users.append(info)
         self.logger.info("representative users: %s" % len(r_users))
         for ind, info in enumerate(r_users):
-            if ind == util.users_for_prediction:
-                # todo: replace with some other filtering of the users to be considered
+            if ind == util.number_of_users_used_to_predict:
                 break
             tweets = self.tweets.collect_user_tweets(info["id"], 1, 200)
             self.logger.info("%s tweets extracted ------------------------------" % len(tweets))
@@ -50,27 +47,25 @@ class PredictCategories(object):
                 user_doc += text
             test = self.vectorizer.transform([user_doc])
             cat = self.clf.predict(test)
-            if str(cat[0]) not in interests:
-                interests.append(str(cat[0]))
+            interests[str(cat[0])] += 1
             self.logger.info("%s predicted category: %s" % (info["screen_name"], cat))
-        return interests
+        # return categories which appear at least three times
+        categories = filter(lambda x: interests[x] > 2, interests.keys())
+        return categories
         
     def predict_for_document(self, category, user_name):
         f = os.path.join(self.base_dir, category, user_name)
         doc = open(f).read()
         transformed_doc = self.vectorizer.transform([doc])
         reduced_doc = self.pca.transform(transformed_doc.toarray())
-        if util.reduce_dimensionality:
-            pvalue = self.clf.predict(transformed_doc)
-        else:
-            pvalue = self.clf.predict(reduced_doc)
+        pvalue = self.clf.predict(reduced_doc)
         #print "%s - %s: %s" % (category, user_name, pvalue)
         return pvalue
            
 if __name__ == "__main__":
     # for testing
     p = PredictCategories()
-    p.predict_for_user("MihaStopar")
+    p.predict_for_user("bla") # some Twitter username
     categories = os.listdir(p.base_dir)
     wrong = 0
     right = 0

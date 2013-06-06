@@ -4,7 +4,7 @@ About
 Classifier for predicting user interests based on Twitter profile. Python library scikit-learn is used for machine learning part.
 
 
-.. image:: https://github.com/miha-stopar/twitterclassifier/blob/master/webui.png
+.. image:: https://raw.github.com/miha-stopar/twitterclassifier/master/webui.png
 
 
 

@@ -1,12 +1,12 @@
-
-
-.. image:: https://bitbucket.org/miha_stopar/twitterclassifier/raw/tip/webui.png
-
-
 About
 =====
 
-Classifier for predicting user interests based on Twitter profile and using Python library scikit-learn.
+Classifier for predicting user interests based on Twitter profile. Python library scikit-learn is used for machine learning part.
+
+
+.. image:: https://github.com/miha-stopar/twitterclassifier/blob/master/webui.png
+
+
 
 Collecting data
 =====

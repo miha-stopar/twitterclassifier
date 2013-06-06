@@ -63,16 +63,13 @@ Dependencies
 Install and run
 =====
 
-Go to */path/to/twitterclassifier/config* and add twitter.cfg file with your Twitter credentials there. It should
-look like something like:
-
+Go to */path/to/twitterclassifier/config* and add twitter.cfg file with your Twitter credentials there:
 ::
 	[Twitter]
-	token = 772084514-zXzUYZlLTE2WazPUFS94Fhmr9wNtEzzeUuQuhpiT
-	token_secret = vBa0oJx8wcotp4teDQY37MyMCv8bE625MixuaDlt4wg
-	consumer_key = CKK55Jukf23p8ejYTXY6w
-	consumer_secret = ywgZZ5fAsC1MCD04icV1lWSoMFlGr3HEmg1PpAWHJY
-
+	token = 
+	token_secret = 
+	consumer_key = 
+	consumer_secret = 
 
 Create a directory where tweets will be stored and edit data_dir parameter in */path/to/twitterclassifier/twclassifier/ccore/util.py*.
 

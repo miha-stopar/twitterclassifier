@@ -10,9 +10,9 @@ classifiers_dir = os.path.join(project_dir, "classifiers")
 config_dir = os.path.join(project_dir, "config")
 web_template = os.path.join(project_dir, "web/views/htemplate")
 #algorithm params:
-users_per_category = 3
+users_per_category = 400
 minimum_number_of_followers = 50
-number_of_users_used_to_predict = 10 # this is just to make the prediction faster, but of course it diminishes the accuracy 
+number_of_users_used_to_predict = 20 # this is just to make the prediction faster, but of course it diminishes the accuracy 
 #web deployment params:
 web_domain="localhost" # no slashes
 web_port=8080

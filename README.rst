@@ -37,9 +37,9 @@ and contain no numbers are considered - see the following line in *traincategori
 ::
 	vectorizer = TfidfVectorizer(stop_words='english', token_pattern=r'[a-zA-Z]{4,}', min_df=4)
 	
-*sklearn.multiclass.OneVsRestClassifier* combined with *sklearn.svm.LinearSVC* is used for training:
+*sklearn.svm.LinearSVC* is used for training:
 ::
-	clf = OneVsRestClassifier(LinearSVC(random_state=0)).fit(X_train, labels)
+	clf = LinearSVC(random_state=0).fit(X_train, labels)
 	
 Trained classifier is stored into *categories.joblib.pkl* into */path/to/twitterclassifier/classifiers*, vectorizer is
 stored into *vect.pkl*.

@@ -1,5 +1,4 @@
 import os
-from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import LinearSVC
 from sklearn.externals import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -34,7 +33,7 @@ class TrainCategories():
                     labels.append(cdir)
         vectorizer = TfidfVectorizer(stop_words='english', token_pattern=r'[a-zA-Z]{4,}', min_df=4)
         X_train = vectorizer.fit_transform(data)
-        clf = OneVsRestClassifier(LinearSVC(random_state=0)).fit(X_train, labels)
+        clf = LinearSVC(random_state=0).fit(X_train, labels)
         filename = os.path.join(util.classifiers_dir, 'categories.joblib.pkl')
         joblib.dump(clf, filename, compress=9)
         filename = os.path.join(util.classifiers_dir, 'vect.pkl')
